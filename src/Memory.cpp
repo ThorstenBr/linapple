@@ -647,6 +647,13 @@ static void UpdatePaging(BOOL initialize, BOOL updatewriteonly) {
 
   for (loop = 0xD0; loop < 0xE0; loop++) {
     int bankoffset = (SW_BANK2 ? 0 : 0x1000);
+#if 1
+     memshadow[loop] = SW_HIGHRAM ? SW_ALTZP ? memaux + (loop << 8) - bankoffset : memmain + (loop << 8) - bankoffset :
+                       memrom + ((loop - 0xD0) * 0x100);
+
+     memwrite[loop] = SW_WRITERAM ? SW_HIGHRAM ? mem + (loop << 8) : SW_ALTZP ? memaux + (loop << 8) - bankoffset :
+                                                                     memmain + (loop << 8) - bankoffset : NULL;
+#else
     memshadow[loop] = SW_HIGHRAM ? SW_BANK2 ? memaux+(loop << 8)-bankoffset
                         : memmain+(loop << 8)-bankoffset
                   : memrom+((loop-0xD0) * 0x100);
@@ -655,6 +662,7 @@ static void UpdatePaging(BOOL initialize, BOOL updatewriteonly) {
                             : SW_BANK2  ? memaux+(loop << 8)-bankoffset
                                   : memmain+(loop << 8)-bankoffset
                     : NULL;
+#endif
   }
 
   for (loop = 0xE0; loop < 0x100; loop++) {
