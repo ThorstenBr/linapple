@@ -207,7 +207,7 @@ int SDL_SoftStretchMy(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL
 /* Perform a monochrome stretch blit between two surfaces of the 8bpp format!
    NOTE:  This function is not safe to call from multiple threads!
 */
-void copy8mono(Uint8 *src, int src_w, Uint8 *dst, int dst_w, Uint8 brush) {
+void copy8mono(Uint8 *src, int src_w, Uint8 *dst, int dst_w, Uint8 brush, Uint8 bgbrush) {
   int i;
   int pos, inc;
   Uint8 pixel = 0;
@@ -221,13 +221,13 @@ void copy8mono(Uint8 *src, int src_w, Uint8 *dst, int dst_w, Uint8 brush) {
     if (pixel) {
       *dst++ = brush;
     } else {
-      *dst++ = 0;
+      *dst++ = bgbrush;
     }
     pos += inc;
   }
 }
 
-int SDL_SoftStretchMono8(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect, Uint8 brush)
+int SDL_SoftStretchMono8(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect, Uint8 brush, Uint8 bgbrush)
 {
   //brush - monochrome color (index from palette)
   int src_locked;
@@ -294,7 +294,7 @@ int SDL_SoftStretchMono8(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, 
     }
     switch (bpp) {
       case 1:
-        copy8mono(srcp, srcrect->w, dstp, dstrect->w, brush);
+        copy8mono(srcp, srcrect->w, dstp, dstrect->w, brush, bgbrush);
         break;
       default:
         break;
