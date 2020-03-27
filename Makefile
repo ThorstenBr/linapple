@@ -59,7 +59,7 @@ ifdef DEBUG
 CFLAGS := -Wall -O0 -ggdb -ansi -c -finstrument-functions -std=c++11
 endif
 
-CFLAGS += -DASSET_DIR=\"$(ASSET_DIR)\" -DRESOURCE_INIT_DIR=\"$(RESOURCE_INIT_DIR)\"
+CFLAGS += -DASSET_DIR=\"$(ASSET_DIR)\" -DRESOURCE_INIT_DIR=\"$(RESOURCE_INIT_DIR)\" -DEMULATOR_VERSION=\"$(VERSION)\"
 CFLAGS += $(SDL_CFLAGS)
 CFLAGS += $(CURL_CFLAGS)
 # Do not complain about XPMs
