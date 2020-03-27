@@ -3476,7 +3476,7 @@ void DrawSubWindow_Info ( Update_t bUpdate, int iWindow )
 		if (bUpdate & UPDATE_ZERO_PAGE)
 			DrawZeroPagePointers( yZeroPage );
 
-			DrawSoftSwitches( ySoft );
+		DrawSoftSwitches( ySoft );
 
 	#if defined(SUPPORT_Z80_EMU) && defined(OUTPUT_Z80_REGS)
 		DrawRegister( 19,"AF",2,*(WORD*)(membank+REG_AF));
